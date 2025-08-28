@@ -261,32 +261,92 @@ par(mfrow = c(1, 2))
 hist(salchichasA$Calorias, prob = TRUE, ylab = "Densidad", xlab="calorias", main = "distribucion de las calorias de las salchichas del tipo A")
 grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
 hist(salchichasA$Calorias , prob = TRUE, add = TRUE, col = "lightpink", xlab="calorias") 
+#sodio
+par(mfrow = c(1, 2))
+hist(salchichasA$Sodio, prob = TRUE, ylab = "Densidad", xlab="Sodio", main = "distribucion del sodio de las salchichas del tipo A")
+grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
+hist(salchichasA$Sodio , prob = TRUE, add = TRUE, col = "lightpink", xlab="Sodio") 
+
 
 #B
+#calorias
 par(mfrow = c(1, 2))
 hist(salchichasB$Calorias, prob = TRUE, ylab = "Densidad", xlab="calorias", main = "distribucion de las calorias de las salchichas del tipo B")
 grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
 hist(salchichasB$Calorias , prob = TRUE, add = TRUE, col = "mediumpurple4", xlab="calorias") 
+#sodio
+par(mfrow = c(1, 2))
+hist(salchichasB$Sodio, prob = TRUE, ylab = "Densidad", xlab="Sodio", main = "distribucion del sodio de las salchichas del tipo B")
+grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
+hist(salchichasB$Sodio , prob = TRUE, add = TRUE, col = "mediumpurple4", xlab="Sodio") 
+
 
 #C
-
+#calorias
 par(mfrow = c(1, 2))
 hist(salchichasC$Calorias, prob = TRUE, ylab = "Densidad", xlab="calorias", main = "distribucion de las calorias de las salchichas del tipo C")
 grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
 hist(salchichasC$Calorias , prob = TRUE, add = TRUE, col = "maroon4", xlab="calorias") 
+#sodio
+par(mfrow = c(1, 2))
+hist(salchichasC$Sodio, prob = TRUE, ylab = "Densidad", xlab="sodio", main = "distribucion del sodio de las salchichas del tipo C")
+grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
+hist(salchichasC$Sodio , prob = TRUE, add = TRUE, col = "maroon4", xlab="Sodio") 
 
 ##boxplot
+
+#calorias
 par(mfrow = c(1, 2))
-box_grafico <- boxplot(table(),
-                       main = "Comparación de Medidas de Tendencia Central del iridio",
-                       ylab = "temperatura",
-                       names = c("Distribución"))
-points(x = 1, y = mediaI, pch = 17, col = "lightpink", cex = 1.5)
-points(x = 1, y = mediaPodadaI10, pch = 15, col = "maroon4", cex = 1.5)
-points(x = 1, y = mediaPodadaI20, pch = 18, col = "mediumpurple1", cex = 1.5)
-points(x = 1, y = medianaI, pch = 16, col = "black", cex = 1.5)
-legend("topright",
-       legend = c("Mediana", "Media", "Media Truncada 10%", "Media Truncada 20%"),
-       col = c("black", "lightpink", "maroon4", "mediumpurple1"),
-       pch = c(16, 17, 15, 18),
-       cex = 0.5)
+boxplot(salchichas$Calorias ~ salchichas$tipo, ylab = "calorias", xlab= "tipos")
+stripchart(salchichas$Calorias ~ salchichas$tipo, vertical = TRUE,method = "jitter", ylab= "calorias", xlab= "tipo",
+           pch = 19, add = TRUE, col= c("lightpink", "mediumpurple4", "maroon4"))
+
+#sodio
+par(mfrow = c(1, 2))
+boxplot(salchichas$Sodio ~ salchichas$tipo, ylab = "Sodio", xlab= "tipos")
+stripchart(salchichas$Sodio ~ salchichas$tipo, vertical = TRUE,method = "jitter", ylab= "calorias", xlab= "tipo",
+           pch = 19, add = TRUE, col= c("lightpink", "mediumpurple4", "maroon4"))
+
+##EJERCICIO 5
+#l conjunto de datos que figura en el archivo estudiantes.txt corresponde a 100 determi-
+#naciones repetidas de la concentracion de ion nitrato (en μg/l), 50 de ellas corresponden a
+#un grupo de estudiantes (Grupo 1) y las restantes 50 a otro grupo (Grupo 2).
+#a) Estudiar si la distribuci´on de los conjuntos de datos para ambos grupos es normal,
+#realizando los correspondientes histogramas y superponiendo la curva normal. Adem´as
+#dibujar los qqplots para cada conjunto de datos superponiendo, en otro color, la recta
+#mediante el comando qqline.
+par(mfrow = c(1, 2))
+estudiantes <- read.table("estudiantes.txt", header = TRUE)
+hist(estudiantes$GRUPO1, prob = TRUE, ylab = "Densidad", xlab="concentracion ion nitrato", main = "distribucion de la concentracion del ion nitrato en los estudiantes")
+grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
+hist(estudiantes$GRUPO1 , prob = TRUE, add = TRUE, col = "lightpink", xlab="concentracion ion nitrato") 
+curve(dnorm(x, mean = mean(estudiantes$GRUPO1), sd = sd(estudiantes$GRUPO1)), add = TRUE, col = "hotpink", lwd = 2)
+
+par(mfrow = c(1, 2))
+hist(estudiantes$GRUPO2, prob = TRUE, ylab = "Densidad", xlab="concentracion ion nitrato", main = "distribucion de la concentracion del ion nitrato en el grupo2")
+grid(nx = NA, ny = NULL, lty = 2, col = "gray", lwd = 1)
+hist(estudiantes$GRUPO2 , prob = TRUE, add = TRUE, col = "mediumpurple", xlab="concentracion ion nitrato") 
+curve(dnorm(x, mean = mean(estudiantes$GRUPO2), sd = sd(estudiantes$GRUPO2)), add = TRUE, col = "purple", lwd = 2)
+
+par(mfrow = c(1, 2))
+qqnorm(estudiantes$GRUPO1, main="QQplot de los estudiantes",ylab = "Cuantiles de la muestra",
+       xlab = "Cuantiles teóricos")
+qqline(estudiantes$GRUPO1, col = "hotpink", lwd = 2)
+
+par(mfrow = c(1, 2))
+qqnorm(estudiantes$GRUPO2, main="QQplot del grupo 2")
+qqline(estudiantes$GRUPO2, col = "hotpink", lwd = 2)
+
+
+##Le parece a partir de estos datos que ambos grupos est´an midiendo lo mismo? Respon-
+#der comparando medidas de centralidad y de dispersi´on de los datos. Hacer boxplots
+#paralelos.Le parece a partir de estos datos que ambos grupos est´an midiendo lo mismo? Respon-
+#der comparando medidas de centralidad y de dispersi´on de los datos. Hacer boxplots
+#paralelos.
+par(mfrow = c(1, 2))
+boxplot(estudiantes$GRUPO1, estudiantes$GRUPO2, 
+        names = c("Grupo 1", "Grupo 2"), 
+        main = "Comparación de los Grupos 1 y 2",
+        ylab = "concentracion ion nitrato")
+stripchart(estudiantes$GRUPO1, estudiantes$GRUPO2, vertical = TRUE,method = "jitter", ylab= "concentracion ion nitrato", xlab= "GRUPO",
+           pch = 19, add = TRUE, col= c("lightpink", "mediumpurple4"))
